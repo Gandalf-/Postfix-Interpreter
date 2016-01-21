@@ -135,7 +135,7 @@ def run_program(program, arguments):
     args.reverse()
 
     stack = []
-    if args: map(stack.append, args)
+    if args: list(map(stack.append, args))
 
     # build the command stack
     command_stack = prog[2:]

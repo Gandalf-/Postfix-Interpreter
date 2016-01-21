@@ -277,7 +277,7 @@ def pf_exec(stack, command_stack):
       return pf_error('exec', 'arg is not executable sequence')
 
     v1.reverse()
-    map(command_stack.append, v1)
+    list(map(command_stack.append, v1))
 
     return stack, command_stack
 
