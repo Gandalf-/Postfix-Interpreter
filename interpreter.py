@@ -57,13 +57,13 @@ def check_program_syntax(program):
        int(token_list[2]) < 0 or
        token_list[-1] != ')'):
 
-        print 'syntax error: bad header'
+        print('syntax error: bad header')
         return failure
     
     # check if all tokens are valid 
     for token in token_list[2:]:
         if not token in valid_commands and not token in parens and not is_int(token):
-            print 'syntax error: bad command', token
+            print('syntax error: bad command', token)
             return failure
 
     # check for balanced parens, ignoring first and last
@@ -93,7 +93,7 @@ def check_arg_syntax(args):
 
     for arg in arg_list:
         if not is_int(arg):
-            print 'syntax error: bad argument: ', arg
+            print('syntax error: bad argument: ', arg)
             return failure
 
     return True, len(arg_list)
@@ -128,11 +128,11 @@ def run_program(program, arguments):
     '''
     
     prog = program.replace('(', '( ').replace(')', ' )').split()
-    prog = map(convert_int, prog)
+    prog = list(map(convert_int, prog))
     prog, index = tokenize(prog, 0)
     
     # put args on stack
-    args = map(int, arguments.split())
+    args = list(map(int, arguments.split()))
     args.reverse()
 
     stack = []
@@ -162,21 +162,21 @@ def run_program(program, arguments):
     while command_stack:
         # print out stacks for trace
         command_stack.reverse()
-        print 'stack   ', stack
-        print 'commands', command_stack
-        print
+        print('stack   ', stack)
+        print('commands', command_stack)
+        print()
         command_stack.reverse()
         
         token = command_stack.pop()
         
         # push integer onto the stack
         if is_int(token):
-            print 'pushing ', token
+            print('pushing ', token)
             stack.append(convert_int(token))
 
         # execute command, pass command_stack for exec
         elif token in valid_commands:
-            print 'running ', token
+            print('running ', token)
             stack, command_stack = command_dict[token](stack, command_stack)
 
             # stack may contain an error message if there was a problem
@@ -185,7 +185,7 @@ def run_program(program, arguments):
         
         # push command sequence onto the stack
         else:
-            print 'pushing ', token
+            print('pushing ', token)
             stack.append(token)
 
         if not stack:
@@ -201,24 +201,24 @@ def main():
 
     none -> none
     '''
-    print 'POSTFIX INTERPRETER v0.1'
+    print('POSTFIX INTERPRETER v0.1')
 
     if interactive:
         while True:
             # get program
             print
-            print '------------------------'
-            program = raw_input('Type a postfix program: ')
+            print('------------------------')
+            program = input('Type a postfix program: ')
             if not program: break
             valid_program, num_req_args = check_program_syntax(program)
 
             # get arguments
             if num_req_args > 0:
-                args = raw_input('Type the arguments: ')
+                args = input('Type the arguments: ')
                 valid_args, num_prov_args = check_arg_syntax(args)
 
                 if num_prov_args != num_req_args:
-                    print 'syntax error: incorrect number of arguments'
+                    print('syntax error: incorrect number of arguments')
 
             else:
                 args = ''
@@ -227,7 +227,7 @@ def main():
             # run
             if valid_program and valid_args:
                 output = run_program(program, args)
-                print 'output  ', output
+                print('output  ', output)
 
     else:
         prog1 = '(postfix 0 1 2 add 5 add)'
@@ -237,11 +237,17 @@ def main():
         prog5 = '(postfix 4 lt (add) (mul) sel exec)'
         prog6 = '(postfix 1 1 nget 0 lt (0 swap sub) () sel exec)'
         prog7 = '(postfix 1 ((3 nget swap exec) (2 mul swap exec) swap) (5 sub) swap exec exec)'
-        print prog6
+        print(prog6)
         output = run_program(prog7, '-7')
-        print output
+        print(output)
 
     return
 
 if __name__ == '__main__':
+    try:
+        import __builtin__
+        input = getattr(__builtin__, 'raw_input')
+    except (ImportError, AttributeError):
+         pass
+
     main()
