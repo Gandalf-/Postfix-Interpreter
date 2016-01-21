@@ -143,27 +143,28 @@ def run_program(program, arguments):
     command_stack = prog[2:]
     command_stack.reverse()
 
-    command_dict = {'add' : commands.pf_add,
-                    'sub' : commands.pf_sub,
-                    'mul' : commands.pf_mul,
-                    'div' : commands.pf_div,
-                    'rem' : commands.pf_rem,
-                    'lt'  : commands.pf_lt,
-                    'gt'  : commands.pf_gt,
-                    'eq'  : commands.pf_eq,
-                    'pop' : commands.pf_pop,
-                    'swap': commands.pf_swap,
-                    'sel' : commands.pf_sel,
-                    'nget': commands.pf_nget,
-                    'exec': commands.pf_exec
-                    }
+    command_dict = {
+        'add' : commands.pf_add,
+        'sub' : commands.pf_sub,
+        'mul' : commands.pf_mul,
+        'div' : commands.pf_div,
+        'rem' : commands.pf_rem,
+        'lt'  : commands.pf_lt,
+        'gt'  : commands.pf_gt,
+        'eq'  : commands.pf_eq,
+        'pop' : commands.pf_pop,
+        'swap': commands.pf_swap,
+        'sel' : commands.pf_sel,
+        'nget': commands.pf_nget,
+        'exec': commands.pf_exec
+        }
 
     while command_stack:
         # print out stacks for trace
         command_stack.reverse()
         print('stack   ', stack)
         print('commands', command_stack)
-        print()
+        print('')
         command_stack.reverse()
         
         token = command_stack.pop()
@@ -242,7 +243,9 @@ def main():
 
     return
 
+
 if __name__ == '__main__':
+    # python 2.x uses raw_input(), 3.x input()
     try:
         import __builtin__
         input = getattr(__builtin__, 'raw_input')
