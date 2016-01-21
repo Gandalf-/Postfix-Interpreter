@@ -13,7 +13,6 @@ parens = [')','(']
 interactive = True
 failure = [False, 0]
 
-
 ### Helpers
 def is_int(string):
     '''
