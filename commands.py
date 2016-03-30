@@ -1,5 +1,4 @@
-'''
-commands.py
+''' commands.py
 Implementation for each postfix command
 
 Austin V
@@ -12,8 +11,7 @@ bad_zero = 'illegal operation by zero'
 
 ### Helpers
 def not_int(elem):
-  '''
-  unknown -> boolean
+  ''' unknown -> boolean
   '''
   if isinstance(elem, int):
     return False
@@ -21,8 +19,7 @@ def not_int(elem):
     return True
 
 def get_two_args(stack):
-  '''
-  list -> int, int || bool, bool
+  ''' list -> int, int || bool, bool
   '''
   try:
     v1 = stack.pop()
@@ -33,16 +30,14 @@ def get_two_args(stack):
     return False, False
 
 def pf_error(command, message):
-  '''
-  string, string -> string, boolean
+  ''' string, string -> string, boolean
   '''
   return ['runtime error: '+command+': '+message, False]
 
 
 ### Commands
 def pf_add(stack, command_stack):
-  '''
-  pops v1,v2, pushes v2 + v1 on stack
+  ''' pops v1,v2, pushes v2 + v1 on stack
 
   list, list -> list, list
   '''
@@ -58,8 +53,7 @@ def pf_add(stack, command_stack):
 
 
 def pf_sub(stack, command_stack):
-  '''
-  pops v1,v2, pushes v2 - v1 on stack
+  ''' pops v1,v2, pushes v2 - v1 on stack
 
   list, list -> list, list
   '''
@@ -75,8 +69,7 @@ def pf_sub(stack, command_stack):
 
 
 def pf_mul(stack, command_stack):
-  '''
-  pops v1,v2, pushes v2 * v1 on stack
+  ''' pops v1,v2, pushes v2 * v1 on stack
 
   list, list -> list, list
   '''
@@ -92,8 +85,7 @@ def pf_mul(stack, command_stack):
 
 
 def pf_div(stack, command_stack):
-  '''
-  pops v1,v2, pushes v2 / v1 on stack
+  ''' pops v1,v2, pushes v2 / v1 on stack
 
   list, list -> list, list
   '''
@@ -111,8 +103,7 @@ def pf_div(stack, command_stack):
 
 
 def pf_rem(stack, command_stack):
-  '''
-  pops v1,v2, pushes v2 * v1 on stack
+  ''' pops v1,v2, pushes v2 * v1 on stack
 
   list, list -> list, list
   '''
@@ -130,8 +121,7 @@ def pf_rem(stack, command_stack):
 
 
 def pf_lt(stack, command_stack):
-  '''
-  pops v1,v2, pushes result of 'less than' comparison
+  ''' pops v1,v2, pushes result of 'less than' comparison
 
   list, list -> list, list
   '''
@@ -150,8 +140,7 @@ def pf_lt(stack, command_stack):
 
 
 def pf_gt(stack, command_stack):
-  '''
-  pops v1,v2, pushes result of 'greater than' comparison
+  ''' pops v1,v2, pushes result of 'greater than' comparison
 
   list, list -> list, list
   '''
@@ -170,8 +159,7 @@ def pf_gt(stack, command_stack):
 
 
 def pf_eq(stack, command_stack):
-  '''
-  pops v1,v2, pushes result of 'equal to' comparison
+  ''' pops v1,v2, pushes result of 'equal to' comparison
 
   list, list -> list, list
   '''
@@ -190,8 +178,7 @@ def pf_eq(stack, command_stack):
 
 
 def pf_pop(stack, command_stack):
-  '''
-  pops v1
+  ''' pops v1
 
   list, list -> list, list
   '''
@@ -204,8 +191,7 @@ def pf_pop(stack, command_stack):
 
 
 def pf_swap(stack, command_stack):
-  '''
-  pops v1,v2, pushes v1, v2 on the stack.
+  ''' pops v1,v2, pushes v1, v2 on the stack.
 
   list, list -> list, list
   '''
@@ -220,8 +206,7 @@ def pf_swap(stack, command_stack):
 
 
 def pf_sel(stack, command_stack):
-  '''
-  pops v1,v2,v3. if v3: push v1 else: push v2
+  ''' pops v1,v2,v3. if v3: push v1 else: push v2
 
   list, list -> list, list
   '''
@@ -243,8 +228,7 @@ def pf_sel(stack, command_stack):
 
 
 def pf_nget(stack, command_stack):
-  '''
-  pops v1, pushes the stack element at that position on the stack
+  ''' pops v1, pushes the stack element at that position on the stack
 
   list, list -> list, list
   '''
@@ -265,8 +249,7 @@ def pf_nget(stack, command_stack):
 
 
 def pf_exec(stack, command_stack):
-  '''
-  pops v1, prepends it to the command stack
+  ''' pops v1, prepends it to the command stack
 
   list, list -> list, list
   '''

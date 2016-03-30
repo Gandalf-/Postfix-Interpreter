@@ -1,5 +1,4 @@
-'''
-Postfix interpreter
+''' Postfix interpreter
 
 Austin V
 '''
@@ -15,8 +14,7 @@ failure = [False, 0]
 
 ### Helpers
 def is_int(string):
-    '''
-    string -> boolean
+    ''' string -> boolean
     '''
     try: 
         isinstance(int(string), int)
@@ -26,8 +24,7 @@ def is_int(string):
 
 
 def convert_int(string):
-    '''
-    if the string can be converted to an integer, convert it
+    ''' if the string can be converted to an integer, convert it
     string -> string || int
     '''
     if is_int(string):
@@ -38,8 +35,7 @@ def convert_int(string):
 
 ### Logic
 def check_program_syntax(program):
-    '''
-    Takes a postfix program as a string, verifies that it has the correct syntax
+    ''' Takes a postfix program as a string, verifies that it has the correct syntax
     and returns a boolean representing whether it's valid. If it is valid, it also 
     returns an int which is the number of required args
 
@@ -82,8 +78,7 @@ def check_program_syntax(program):
 
 
 def check_arg_syntax(args):
-    '''
-    Given a string, verifies that every word in the string can be converted to an
+    ''' Given a string, verifies that every word in the string can be converted to an
     integer, and returns the number of arguments encountered
 
     string -> boolean
@@ -99,10 +94,9 @@ def check_arg_syntax(args):
 
 
 def tokenize(token_list, index):
-    '''
-    Clumps elements of nested parens together
+    ''' Clumps elements of nested parens together
 
-    list of strings -> list of strings
+    list of strings -> list of strings, int
     '''
     out_list = []
     index += 1
@@ -122,8 +116,7 @@ def tokenize(token_list, index):
 
 
 def run_program(program, arguments):
-    '''
-    string, string -> string
+    ''' string, string -> string
     '''
     
     prog = program.replace('(', '( ').replace(')', ' )').split()
@@ -194,8 +187,7 @@ def run_program(program, arguments):
 
 # Main
 def main():
-    '''
-    Gets user input, checks syntax, and runs the program
+    ''' Gets user input, checks syntax, and runs the program
 
     none -> none
     '''
