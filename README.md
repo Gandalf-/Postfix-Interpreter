@@ -7,7 +7,7 @@ Postfix language interpreter implemented in Python
 - Quit the interpreter by pressing *return* on an empty line
 
 **Example Postfix Programs**
-- (postfix 2 add)
-- (postfix 1 1 nget mul) 
-- (postfix 1 1 nget 0 lt (0 swap sub) () sel exec)
-- (postfix 0 (swap exec swap exec) (1 sub) swap (2 mul) swap 3 swap exec)
+- In the form "program" -> "arguments" -> "output"
+- (postfix 2 add) -> 1 2 -> 3
+- (postfix 1 1 nget mul) -> 5 -> 25
+- (postfix 1 1 nget 0 lt (0 swap sub) () sel exec) -> -10 -> 10
