@@ -4,12 +4,13 @@ Implementation for each postfix command
 Austin V
 '''
 
-### globals
+# globals
 bad_args = 'not enough args'
 bad_int = 'arg not int'
 bad_zero = 'illegal operation by zero'
 
-### Helpers
+
+# Helpers
 def not_int(elem):
     ''' unknown -> boolean
     '''
@@ -17,6 +18,7 @@ def not_int(elem):
         return False
     else:
         return True
+
 
 def get_two_args(stack):
     ''' list -> int, int || bool, bool
@@ -29,24 +31,25 @@ def get_two_args(stack):
     except (IndexError, TypeError):
         return False, False
 
+
 def pf_error(command, message):
     ''' string, string -> string, boolean
     '''
-    return ['runtime error: '+command+': '+message, False]
+    return ['runtime error: ' + command + ': ' + message, False]
 
 
-### Commands
+# Commands
 def pf_add(stack, command_stack):
     ''' pops v1,v2, pushes v2 + v1 on stack
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
-        return pf_error('add',bad_args)
+        return pf_error('add', bad_args)
     if not_int(v1) or not_int(v2):
-        return pf_error('add',bad_int)
+        return pf_error('add', bad_int)
 
     stack.append(v2 + v1)
     return stack, command_stack
@@ -57,12 +60,12 @@ def pf_sub(stack, command_stack):
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
-        return pf_error('sub',bad_args)
+        return pf_error('sub', bad_args)
     if not_int(v1) or not_int(v2):
-        return pf_error('sub',bad_int)
+        return pf_error('sub', bad_int)
 
     stack.append(v2 - v1)
     return stack, command_stack
@@ -73,10 +76,10 @@ def pf_mul(stack, command_stack):
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
-        return pf_error('mul',bad_args)
+        return pf_error('mul', bad_args)
     if not_int(v1) or not_int(v2):
         return pf_error('mul', bad_int)
 
@@ -89,14 +92,14 @@ def pf_div(stack, command_stack):
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
-        return pf_error('div',bad_args)
+        return pf_error('div', bad_args)
     if not_int(v1) or not_int(v2):
-        return pf_error('div',bad_int)
+        return pf_error('div', bad_int)
     if v1 == 0:
-        return pf_error('div',bad_zero)
+        return pf_error('div', bad_zero)
 
     stack.append(v2 / v1)
     return stack, command_stack
@@ -107,7 +110,7 @@ def pf_rem(stack, command_stack):
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
         return pf_error('rem', bad_args)
@@ -125,7 +128,7 @@ def pf_lt(stack, command_stack):
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
         return pf_error('lt', bad_args)
@@ -144,7 +147,7 @@ def pf_gt(stack, command_stack):
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
         return pf_error('gt', bad_args)
@@ -163,7 +166,7 @@ def pf_eq(stack, command_stack):
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
         return pf_error('eq', bad_args)
@@ -187,7 +190,7 @@ def pf_pop(stack, command_stack):
         return stack, command_stack
 
     except IndexError:
-        return pf_error('pop','stack empty')
+        return pf_error('pop', 'stack empty')
 
 
 def pf_swap(stack, command_stack):
@@ -195,7 +198,7 @@ def pf_swap(stack, command_stack):
 
     list, list -> list, list
     '''
-    v1,v2 = get_two_args(stack)
+    v1, v2 = get_two_args(stack)
 
     if type(v1) == bool:
         return pf_error('swap', bad_args)
@@ -260,7 +263,8 @@ def pf_exec(stack, command_stack):
             return pf_error('exec', 'arg is not executable sequence')
 
         v1.reverse()
-        list(map(command_stack.append, v1))
+        for command in v1:
+            command_stack.append(command)
 
         return stack, command_stack
 
